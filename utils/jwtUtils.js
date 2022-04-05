@@ -12,7 +12,7 @@ const issueJwt = (userId) => {
 
   const signedToken = jsonwebtoken.sign(payload, PRIV_KEY, {
     algorithm: "RS256",
-    expiresIn: "20s",
+    expiresIn: "2d",
   });
 
   return {
