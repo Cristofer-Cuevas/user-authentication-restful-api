@@ -15,8 +15,8 @@ const options = {
 };
 
 passport.use(
-  new JwtStrategy(options, (payload, done) => {
-    pool.query("SELECT id, name, last_name FROM users WHERE id = $1", [payload.sub], (err, { rows }) => {
+  new JwtStrategy(options, async (payload, done) => {
+    pool.query("SELECT id, username FROM users_username WHERE id = $1", [payload.sub], (err, { rows }) => {
       if (rows[0]) {
         done(null, rows[0]);
       } else {
