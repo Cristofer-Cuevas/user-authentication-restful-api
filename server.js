@@ -3,6 +3,7 @@ import cors from "cors";
 import pool from "./db/connection.js";
 import passport from "passport";
 import "./auth/jwt-auth.js";
+import router from "./routes/userAuthRoutes.js";
 
 const app = express();
 
@@ -17,5 +18,6 @@ app.use(passport.initialize());
 app.use(express.urlencoded({ extended: true }));
 
 app.listen(PORT, () => {
+  app.use(router);
   console.log(`Server running on port ${PORT}`);
 });
