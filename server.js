@@ -7,10 +7,7 @@ import router from "./routes/userAuthRoutes.js";
 
 const app = express();
 
-const path = new URL(import.meta.url).pathname;
-
 const PORT = 3001 || process.env.PORT;
-console.log(path);
 
 app.use(cors());
 app.use(express.json());
