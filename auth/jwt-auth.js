@@ -14,14 +14,22 @@ const options = {
   algorithms: ["RS256"],
 };
 
+const getUser = (done, payload, columns, table) => {
+  pool.query(`SELECT ${columns} FROM ${table} WHERE id = $1`, [payload.sub], (err, { rows }) => {
+    if (rows[0]) {
+      done(null, rows[0]);
+    } else {
+      done(err, false);
+    }
+  });
+};
+
 passport.use(
   new JwtStrategy(options, async (payload, done) => {
-    pool.query("SELECT id, username FROM users_username WHERE id = $1", [payload.sub], (err, { rows }) => {
-      if (rows[0]) {
-        done(null, rows[0]);
-      } else {
-        done(err, false);
-      }
-    });
+    if (payload.with === "username") {
+      getUser(done, payload, "id, username", "users_username");
+    } else if (payload.with === "email") {
+      getUser(done, payload, "id, name, last_name, email", "users_email");
+    }
   })
 );
