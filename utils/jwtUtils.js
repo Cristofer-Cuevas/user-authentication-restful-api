@@ -4,10 +4,11 @@ import jsonwebtoken from "jsonwebtoken";
 // Issuing JWT
 
 const PRIV_KEY = fs.readFileSync("id_rsa_priv.pem", { encoding: "utf8" }, import.meta.url);
-const issueJwt = (userId) => {
+const issueJwt = (userId, authWith) => {
   const payload = {
     sub: userId,
     expiresIn: "2d",
+    with: authWith,
   };
 
   const signedToken = jsonwebtoken.sign(payload, PRIV_KEY, {
