@@ -12,12 +12,10 @@ const devConfig = {
   port: process.env.PG_PORT,
 };
 
-const pool = new Pool({
-  user: "christopher",
-  password: process.env.PG_PASSWORD,
-  host: "localhost",
-  database: "user-authentication-restful-api",
-  port: 5432,
-});
+const proConfig = {
+  connectionString: process.env.DATABASE_URL, // URL coming from heroku (production)
+};
+
+const pool = new Pool(process.env.NODE_ENV === "production" ? proConfig : devConfig);
 
 export default pool;
