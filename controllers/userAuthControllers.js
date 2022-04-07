@@ -29,7 +29,7 @@ controllers.siginPost = async (req, res) => {
         const { token } = issueJwt(user[0].id, "username");
         res.json({ success: true, token: token });
       } else {
-        res.json({ success: false, isPasswordInvalid: true });
+        res.json({ success: false, isPasswordValid: false });
       }
     }
   } catch (error) {
@@ -90,7 +90,7 @@ controllers.signinPostWithEmail = async (req, res) => {
         const { token } = issueJwt(user[0].id, "email");
         res.json({ success: true, token: token });
       } else {
-        res.json({ success: false, isPasswordValid: true });
+        res.json({ success: false, isPasswordValid: false });
       }
     }
   } catch (error) {
