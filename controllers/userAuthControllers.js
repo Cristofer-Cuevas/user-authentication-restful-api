@@ -104,7 +104,7 @@ controllers.signinPostWithEmail = async (req, res) => {
 controllers.signupPostWithEmail = async (req, res) => {
   try {
     const { name, lastName, email, password } = req.body;
-    const user = getUserByEmail(email);
+    const user = await getUserByEmail(email);
 
     if (user[0]) {
       res.json({ userExists: true });
