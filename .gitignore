@@ -1,8 +1,2 @@
 /node_modules
 /.env
-
-# PUBLIC KEY.
-/id_rsa_pub.pem
-
-# PRIVATE KEY.
-/id_rsa_priv.pem
