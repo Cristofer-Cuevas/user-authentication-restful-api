@@ -27,7 +27,7 @@ controllers.siginPost = async (req, res) => {
       // Generating token
       if (isPasswordValid) {
         const { token } = issueJwt(user[0].id, "username");
-        res.json({ success: true, token: token });
+        res.json({ success: true, token, user });
       } else {
         res.json({ success: false, isPasswordValid: false });
       }
@@ -57,7 +57,7 @@ controllers.signupPost = async (req, res) => {
       // If the user was successfully saved
       if (user[0]) {
         const { token } = issueJwt(user[0].id, "username");
-        res.json({ success: true, token: token });
+        res.json({ success: true, token, user });
       } else {
         res.json({ anInternalErrorOccurred: true });
       }
@@ -89,7 +89,7 @@ controllers.signinPostWithEmail = async (req, res) => {
       const isPasswordValid = validatePassword(password, user[0].hash, user[0].salt);
       if (isPasswordValid) {
         const { token } = issueJwt(user[0].id, "email");
-        res.json({ success: true, token: token });
+        res.json({ success: true, token, user });
       } else {
         res.json({ success: false, isPasswordValid: false });
       }
@@ -117,7 +117,7 @@ controllers.signupPostWithEmail = async (req, res) => {
       // if user was successfully saved
       if (user[0]) {
         const { token } = issueJwt(user[0].id, "email");
-        res.json({ success: true, token: token });
+        res.json({ success: true, token, user });
       } else {
         res.json({ success: false, anInternalErrorOccurred: true });
       }
