@@ -11,7 +11,6 @@ const getUserByUsername = async (username) => {
   return user;
 };
 
-// Sign in post //
 controllers.siginPost = async (req, res) => {
   try {
     console.log(req.body);
@@ -28,7 +27,7 @@ controllers.siginPost = async (req, res) => {
       // Generating token
       if (isPasswordValid) {
         const { token } = issueJwt(user[0].id, "username");
-        res.json({ success: true, token, user: user[0] });
+        res.json({ success: true, token, user: { name: user[0].username, id: user[0].id } });
       } else {
         res.json({ success: false, isPasswordValid: false });
       }
@@ -58,7 +57,7 @@ controllers.signupPost = async (req, res) => {
       // If the user was successfully saved
       if (user[0]) {
         const { token } = issueJwt(user[0].id, "username");
-        res.json({ success: true, token, user: user[0] });
+        res.json({ success: true, token, user: { name: user[0].username, id: user[0].id } });
       } else {
         res.json({ anInternalErrorOccurred: true });
       }
@@ -90,7 +89,7 @@ controllers.signinPostWithEmail = async (req, res) => {
       const isPasswordValid = validatePassword(password, user[0].hash, user[0].salt);
       if (isPasswordValid) {
         const { token } = issueJwt(user[0].id, "email");
-        res.json({ success: true, token, user: user[0] });
+        res.json({ success: true, token, user: { name: user[0].name, last_name: user[0].last_name, email: user[0].email, id: user[0].id } });
       } else {
         res.json({ success: false, isPasswordValid: false });
       }
@@ -118,7 +117,7 @@ controllers.signupPostWithEmail = async (req, res) => {
       // if user was successfully saved
       if (user[0]) {
         const { token } = issueJwt(user[0].id, "email");
-        res.json({ success: true, token, user: user[0] });
+        res.json({ success: true, token, user: { name: user[0].name, last_name: user[0].last_name, email: user[0].email, id: user[0].id } });
       } else {
         res.json({ success: false, anInternalErrorOccurred: true });
       }
