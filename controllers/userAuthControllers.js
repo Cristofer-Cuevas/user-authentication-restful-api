@@ -11,6 +11,7 @@ const getUserByUsername = async (username) => {
   return user;
 };
 
+// Sign in post //
 controllers.siginPost = async (req, res) => {
   try {
     console.log(req.body);
@@ -52,7 +53,7 @@ controllers.signupPost = async (req, res) => {
       // Generating password hash and salt.
       const { hash, salt } = genPassword(password);
       // Populating table users_username
-      const { rows: user } = await pool.query("INSERT INTO users_username VALUES($1, $2, $3, $4) RETURNING id", [uuidv4(), username, salt, hash]);
+      const { rows: user } = await pool.query("INSERT INTO users_username VALUES($1, $2, $3, $4) RETURNING *", [uuidv4(), username, salt, hash]);
 
       // If the user was successfully saved
       if (user[0]) {
