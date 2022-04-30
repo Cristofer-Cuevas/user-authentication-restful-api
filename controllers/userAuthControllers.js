@@ -113,7 +113,7 @@ controllers.signupPostWithEmail = async (req, res) => {
       const { hash, salt } = genPassword(password);
 
       // Populating table users_email
-      const { rows: user } = await pool.query("INSERT INTO users_email VALUES($1, $2, $3, $4, $5, $6) RETURNING id", [uuidv4(), name, lastName, email, salt, hash]);
+      const { rows: user } = await pool.query("INSERT INTO users_email VALUES($1, $2, $3, $4, $5, $6) RETURNING *", [uuidv4(), name, lastName, email, salt, hash]);
 
       // if user was successfully saved
       if (user[0]) {
